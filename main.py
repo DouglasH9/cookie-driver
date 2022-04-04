@@ -48,4 +48,25 @@ while True:
         cookie_count = int(money_element)
 
 #         finding affordable upgrades
+        affordable_upgrades = {}
+        # grab the cost and item id from upgrades dictionary
+        for cost, id in upgrades.items():
+            if cookie_count > cost:
+                affordable_upgrades[cost] = id
+
+        # buy most expensive upgrade...
+        most_expensive_upgrade = max(affordable_upgrades)
+        print(most_expensive_upgrade)
+        upgrade_to_purchase_id = affordable_upgrades[most_expensive_upgrade]
+
+        driver.find_element(by="id", value=upgrade_to_purchase_id).click()
+
+#         Add 5 more seconds to timer to buy another upgrade
+        timeout = time.time() + 5
+
+    if time.time() > five_mins:
+        cookies_per_second = driver.find_element(by="id", value="cps").text
+        print(cookies_per_second)
+        break
+
 
